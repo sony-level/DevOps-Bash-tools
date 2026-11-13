@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -34,12 +35,10 @@ url="https://dl.google.com/cloudsql/cloud_sql_proxy.$os.amd64"
 tmpfile="$(mktemp)"
 
 echo "Downloading Google Cloud SQL Proxy"
-if type wget &>/dev/null; then
-    wget -qO "$tmpfile" "$url"
-elif type curl &>/dev/null; then
-    curl -sS "$url" > "$tmpfile"
+if type curl &>/dev/null; then
+    curl -sSLf --proto "=https" "$url" > "$tmpfile"
 else
-    echo "Error: neither wget nor curl were found in your \$PATH, cannot download cloud_sql_proxy"
+    echo "Error: curl not found in your \$PATH, cannot download cloud_sql_proxy"
     exit 1
 fi
 

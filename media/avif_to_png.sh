@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -26,7 +27,12 @@ Converts a Avif image to PNG to be usable on websites that don't support Avif im
 
 Opens the converted PNG image to verify it
 
-Requires ImageMagick to be installed, attempts to install it if not found
+Requires ImageMagick and the heif library to be installed, attempts to install them if not already instealled
+
+On Mac you can pre-install them using these commands:
+
+    brew install libheif
+    brew install imagemagick
 "
 
 # used by usage() in lib/utils.sh
@@ -68,10 +74,12 @@ convert(){
     return 1
 }
 
+# faster to just try to convert and if it fails then check for missing packages
+# rather than incur the overhead of checking for packages every time
 if convert; then
     converted=1
 else
-    "$srcdir/../packages/install_packages.sh" imagemagick ||
+    "$srcdir/../packages/install_packages_if_absent.sh" imagemagick ||
     # can add other tools here later if wanted
     #"$srcdir/../packages/install_packages.sh" anothertool ||
     die "Failed to install ImageMagick to convert Avif to PNG"

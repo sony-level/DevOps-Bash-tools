@@ -8,12 +8,11 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
-
-# XXX: looks like this tool has disappeared from the website
 
 # Installs MouseTools on Mac OS X
 #
@@ -22,6 +21,8 @@
 set -euo pipefail
 [ -n "${DEBUG:-}" ] && set -x
 #srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "WARNING: it looks like this tool has disappeared from the website"
 
 if [ "$(uname -s)" != Darwin ]; then
     echo "Operating System is not Mac, cannot install MouseTools which is for Mac, aborting..."
@@ -35,7 +36,7 @@ fi
 
 cd /tmp
 
-wget -O MouseTools.zip http://www.hamsoftengineering.com/assets/MouseTools.zip
+wget -O MouseTools.zip https://www.hamsoftengineering.com/assets/MouseTools.zip
 
 unzip -o -- MouseTools.zip
 

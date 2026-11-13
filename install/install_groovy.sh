@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -38,7 +39,9 @@ echo
 if ! [ -e "$BASE/groovy" ]; then
     mkdir -p "$BASE"
     cd "$BASE"
-    wget -t 100 --retry-connrefused "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$GROOVY_VERSION.zip"
+    curl -sSLfO \
+         --proto "=https" \
+         "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$GROOVY_VERSION.zip"
     unzip "apache-groovy-binary-$GROOVY_VERSION.zip"
     ln -sv -- "groovy-$GROOVY_VERSION" groovy
     rm -f -- "apache-groovy-binary-$GROOVY_VERSION.zip"

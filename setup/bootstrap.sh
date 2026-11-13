@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -35,7 +36,10 @@ sudo=""
 if [ "$(uname -s)" = Darwin ]; then
     echo "Bootstrapping on Mac OS X:  $repo"
     if ! type brew >/dev/null 2>&1; then
-        curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install | $sudo ruby
+        curl -sSLf \
+             --proto "=https"
+             https://raw.githubusercontent.com/Homebrew/install/master/install |
+        $sudo ruby
     fi
 elif [ "$(uname -s)" = Linux ]; then
     echo "Bootstrapping on Linux:  $repo"
@@ -82,5 +86,5 @@ else
 fi
 
 if [ -z "${NO_MAKE:-}" ]; then
-    make install
+    make
 fi

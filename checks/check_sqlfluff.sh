@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -57,7 +58,7 @@ section "SQLFluff"
 if ! type -P sqlfluff &>/dev/null; then
     timestamp "SQLFluff not installed, attempting to install it now..."
     "$srcdir/../packages/install_package.sh" sqlfluff ||
-    pip install sqlfluff
+    pip install --only-binary :all: sqlfluff
     echo
 fi
 

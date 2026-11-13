@@ -20,6 +20,7 @@
 .envrc-python
 .gitconfig
 .gitignore
+.git-templates/git-secrets/hooks/*
 # top-level .mdlrc is cumulative and can mask issues in project repos
 # instead use an .mdlrc and .mdl.rb in each repo individually
 #.mdlrc
@@ -39,7 +40,6 @@ configs/.config/pycodestyle
 configs/.config/terminalizer/config.yml
 configs/.config/yamllint/config
 configs/.gemrc
-configs/.git-templates/git-secrets/hooks/*
 configs/.grype.yaml
 #configs/.hammerspoon  # moved to its own repo
 configs/.inputrc

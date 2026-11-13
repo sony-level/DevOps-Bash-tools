@@ -59,13 +59,19 @@ else
     # needs to find Python 3 first in the path to work
     #PATH="/usr/local/opt/python/libexec/bin:$PATH" ./awscli-bundle/install -b ~/bin/aws
     if is_mac; then
-        wget -c "https://awscli.amazonaws.com/AWSCLIV2.pkg" -O "AWSCLIV2.pkg"
+        curl -sSLf \
+             --proto "=https" \
+             -o "AWSCLIV2.pkg" \
+             "https://awscli.amazonaws.com/AWSCLIV2.pkg"
         # defined in utils.sh lib
         # shellcheck disable=SC2154
         $sudo installer -pkg AWSCLIV2.pkg -target /
         rm -fr -- AWSCLIV2.pkg
     else
-        wget -c "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -O "awscliv2.zip"
+        curl -sSLf \
+             --proto "=https" \
+             -o "awscliv2.zip" \
+             "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
         unzip -o awscliv2.zip
         # defined in utils.sh lib
         # shellcheck disable=SC2154
@@ -86,9 +92,15 @@ if type -P ecs-cli &>/dev/null; then
 else
     echo "Installing AWS ECS CLI"
     if is_mac; then
-        wget -O ~/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-darwin-amd64-latest
+        curl -sSLf \
+             --proto "=https" \
+             -o ~/bin/ecs-cli \
+             https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-darwin-amd64-latest
     else
-        wget -O ~/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
+        curl -sSLf \
+             --proto "=https" \
+             -o ~/bin/ecs-cli \
+             https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
     fi
     chmod +x ~/bin/ecs-cli
 fi

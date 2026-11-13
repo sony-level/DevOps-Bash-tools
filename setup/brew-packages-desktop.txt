@@ -9,7 +9,6 @@
 #
 # Many of these are now available in brew casks - TODO: test and move to brew-packages-desktop-casks.txt
 #
-# Chrome
 # Docker Desktop
 # Google Drive
 # RStudio
@@ -24,7 +23,6 @@
 # Sublime Text 2
 # SynergyOSX
 # TunnelBlick
-# VLC
 # WindowWrangler?
 # Wireshark
 # iPhone Explorer
@@ -38,6 +36,7 @@ https://raw.githubusercontent.com/jingweno/spotctl/master/Formula/spotctl.rb
 ack
 act  # runs GitHub Actions locally
 agg  # converts asciicast terminal recording to gif
+aider  # use online AI models against local files
 amazon-ecs-cli
 #amazon-sam-cli  # no longer found
 ansible
@@ -51,10 +50,12 @@ asdf
 autoconf
 autojump
 autossh
+#avidemux  # video editor - doesn't install, fails gatekeeper check
 #awsume
 #aws-iam-authenticator
 bash  # version 5, not old version 3 from Apple due to licensing
 #bash-completion  # slows down spawning new shells which I do frequently
+#bat  # cat clone with syntax highlighting and Git integration
 #bazel
 bazelisk  # bazel wrapper downloader like mvnw/gradlew, addes 'bazel' to $PATH so conflicts with bazel package above
 brew-cask-completion
@@ -137,6 +138,7 @@ gping  # graphs pings in terminal interactive ascii art
 gradle
 #gradle-completion  # forces bash-completion which slows down my shells
 #grafana
+#grc  # grcat generic colourizer with configurable rules to highlight patterns in command output (IP addresses, errors, numbers)
 graphviz  # for the 'dot' command (use with terraform graph), and also github.com/HariSekhon/Diagrams-as-Code
 gron  # flattens JSON to be greppable
 #groovy  # see near end
@@ -235,6 +237,7 @@ packer-completion
 pandoc
 #parallel  # in brew-packages.txt
 parquet-tools
+#pastel  # generate, analyze, convert and manipulate colors
 #pcre
 #pcre2
 perltidy

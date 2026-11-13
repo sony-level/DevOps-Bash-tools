@@ -15,7 +15,7 @@
 #
 
 # ============================================================================ #
-#              M a s   A p p   S t o r e   P a c k a g e   L i s t
+#                  A p p   S t o r e   P a c k a g e   L i s t
 # ============================================================================ #
 
 # App Store packages to install on a new Mac using Mas

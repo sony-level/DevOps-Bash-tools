@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -32,7 +33,7 @@ usage_args=""
 help_usage "$@"
 
 if [ -n "${FORCE_INSTALL:-}" ] || ! type -P serverless &>/dev/null; then
-    curl -o- -L https://slss.io/install | bash
+    curl -sSLf -o- --proto "=https"  https://slss.io/install | bash
 else
     echo "serverless is already installed. To upgrade run 'serverless upgrade'"
 fi

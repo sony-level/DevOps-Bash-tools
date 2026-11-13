@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -47,7 +48,7 @@ if ! type -P kubectl &>/dev/null; then
 fi
 
 timestamp "Getting latest stable version number"
-version="$(curl -L -s https://dl.k8s.io/release/stable.txt)"
+version="$(curl -sSLf --proto "=https" https://dl.k8s.io/release/stable.txt)"
 timestamp "Stable version is: $version"
 
 echo
@@ -57,7 +58,7 @@ arch="$(get_arch)"
 
 timestamp "Downloading kubectl-convert version '$version' for '$os' arch '$arch'"
 echo
-wget -c "https://dl.k8s.io/release/$version/bin/$os/$arch/kubectl-convert"
+curl -sSLfO --proto "=https" "https://dl.k8s.io/release/$version/bin/$os/$arch/kubectl-convert"
 echo
 timestamp "Downloaded binary"
 
@@ -65,7 +66,7 @@ echo
 
 timestamp "Getting SHA checksum"
 echo
-wget -c "https://dl.k8s.io/release/$version/bin/$os/$arch/kubectl-convert.sha256"
+curl -sSLfO --proto "=https" "https://dl.k8s.io/release/$version/bin/$os/$arch/kubectl-convert.sha256"
 echo
 timestamp "Downloaded checksum"
 

@@ -95,6 +95,14 @@ End   Date: $end_date
 
 EOF
 
+if [ -z "${QUIET:-}" ]; then
+    cat <<EOF
+Files Changed:
+
+$files
+EOF
+fi
+
 if [ "$files_total" != "$((files_added + files_modified + files_deleted + files_renamed))" ]; then
     echo
     warn "Total Files != ( Added + Modified + Deleted + Renamed )

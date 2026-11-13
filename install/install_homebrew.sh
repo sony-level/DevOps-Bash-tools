@@ -44,7 +44,7 @@ else
         {
             echo "$cmds"
             # LinuxBrew has migrated to HomeBrew now
-            curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh
+            curl -sSLf --proto "=https" https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh
             # but this requires newer curl and fails many CI builds - https://github.com/Homebrew/install/issues/367
             #curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh
         } |
@@ -69,6 +69,6 @@ else
         echo "Installing HomeBrew on Mac as user ${USER:-whoami}"
         # now deprecated and replaced with the shell version below
         #curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install | ruby
-        bash -c "$(echo "$cmds"; curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        bash -c "$(echo "$cmds"; curl -sSLf --proto "=https" https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
 fi

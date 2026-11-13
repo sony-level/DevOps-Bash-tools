@@ -9,7 +9,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -43,7 +44,7 @@ min_args 1 "$@"
 url="https://updates.jenkins.io/current/update-center.actual.json"
 
 log "* downloading json"
-json="$(curl -sSfL "$url" || die "failed to fetch json from '$url'")"
+json="$(curl -sSLf --proto "=https""$url" || die "failed to fetch json from '$url'")"
 
 log "* checking not blank"
 # extremely poor performance for large 3M json download

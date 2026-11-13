@@ -73,7 +73,10 @@ else
         echo "Downloading diff-so-fancy fatpack to ~/bin"
         mkdir -pv ~/bin
         cd ~bin
-        wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+        curl -sSLf \
+             --proto "=https" \
+             -o diff-so-fancy
+             https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
         chmod +x diff-so-fancy
     #fi
 fi

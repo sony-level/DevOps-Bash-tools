@@ -288,7 +288,10 @@ gitbrowse(){
 
 install_git_completion(){
     if ! [ -f ~/.git-completion.bash ]; then
-        wget -O ~/.git-completion.bash https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+        curl -sSLf \
+             --proto "=https" \
+             -o ~/.git-completion.bash \
+             https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
     fi
 }
 
@@ -835,34 +838,48 @@ gitrm(){
 }
 
 gitrename(){
+    local old="$1"
+    local new="$2"
     if [ $# -ne 2 ]; then
         echo "usage: gitrename <original_filename> <new_filename>"
         return 1
     fi
-    if [ -f "$2" ]; then
-        local file_already_exists=1
-        mv -iv -- "$2" "$2.tmp"
+    # if the target is a directory, then explicitly specify the path
+    # to prevent committing all uncommitted changes in that directory
+    if [ -d "$new" ]; then
+        new="$new/${old##*/}"
     fi
-    git mv -- "$1" "$2" &&
-    git commit -m "renamed $1 to $2" "$1" "$2"
+    if [ -f "$new" ]; then
+        local file_already_exists=1
+        mv -iv -- "$new" "$new.tmp"
+    fi
+    git mv -- "$old" "$new" &&
+    git commit -m "renamed $old to $new" "$old" "$new"
     if [ "${file_already_exists:-}" = 1 ]; then
-        mv -fv -- "$2.tmp" "$2"
+        mv -fv -- "$new.tmp" "$new"
     fi
 }
 
 gitmv(){
+    local old="$1"
+    local new="$2"
     if [ $# -ne 2 ]; then
         echo "usage: gitmv <original_filename> <new_filename>"
         return 1
     fi
-    if [ -f "$2" ]; then
-        local file_already_exists=1
-        mv -iv -- "$2" "$2.tmp"
+    # if the target is a directory, then explicitly specify the path
+    # to prevent committing all uncommitted changes in that directory
+    if [ -d "$new" ]; then
+        new="$new/${old##*/}"
     fi
-    git mv -- "$1" "$2" &&
-    git commit -m "moved $1 to $2" "$1" "$2"
+    if [ -f "$new" ]; then
+        local file_already_exists=1
+        mv -iv -- "$new" "$new.tmp"
+    fi
+    git mv -- "$old" "$new" &&
+    git commit -m "moved $old to $new" "$old" "$new"
     if [ "${file_already_exists:-}" = 1 ]; then
-        mv -fv -- "$2.tmp" "$2"
+        mv -fv -- "$new.tmp" "$new"
     fi
 }
 
@@ -978,31 +995,6 @@ git_revert_typechange(){
     # want splitting to separate filenames
     # shellcheck disable=SC2046
     co $(git status --porcelain -s "${1:-.}" | awk '/^.T/{print $2}')
-}
-
-git_rm_untracked(){
-    if [ $# -lt 1 ]; then
-        echo "usage: rm_untracked <target_dir_or_files_or_glob>"
-        return 1
-    fi
-    # iterate on explicit targets only
-    # intentionally not including current directory to avoid accidentally wiping out untracked files - you must specify "rm_untracked ." if you really intend this
-    for x in "${@:-}"; do
-        git status --porcelain -s --untracked-files=all "$x" |
-        # this breaks the correct spacings for Spotify playlist filenames
-        #awk '/^\?\?/{$1=""; print}' |
-        grep '^??' |
-        sed 's/^?? //' |
-        while read -r filename; do
-            # git status --porcelain double quotes file paths when containing unicode chars which are representated in \xxx format
-            # you must set 'git config --global core.quotePath false' for this to work properly
-            #
-            # this doesn't help because you are still stuck with \xxx chars throughout
-            filename="${filename#\"}"
-            filename="${filename%\"}"
-            rm -v -- "$filename" || break
-        done
-    done
 }
 
 # example of usage of this in the function below - make sure to put '$repo' or "\$repo" somewhere in the argument body to make use of the iteration variable

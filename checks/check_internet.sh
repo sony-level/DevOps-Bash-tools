@@ -75,7 +75,7 @@ configure_sites_to_test(){
         return
     fi
     # China detection is best effort and ignore if it fails and just stick with the defaults
-    country="$(curl -sS https://ifconfig.co/json | jq -r '.country' || :)"
+    country="$(curl -s https://ifconfig.co/json 2>/dev/null | jq -r '.country' || :)"
 
     if [ "$country" = "China" ]; then
         timestamp "Configuring Site Tests: for China"
@@ -83,7 +83,7 @@ configure_sites_to_test(){
         public_ip="111.63.65.103"
         websites="baidu.com $important_websites"
     else
-        timestamp "Configuring Site Tests: Default"
+        #timestamp "Configuring Site Tests: Default"
         domain="google.com"
         public_ip="1.1.1.1"
         websites="google.com $important_websites"
@@ -118,7 +118,7 @@ check_public_ip() {
     if ping -c "$ping_count" -W "$ping_timeout" "$public_ip" &>/dev/null; then
         timestamp "OK: Public IP reachable"
     else
-        timestamp "FAIL: Public IP '$public_ip' unreachable"
+        timestamp "FAIL: Public IP '$public_ip' unreachable - possible gateway ICMP egress filter, ignoring"
         return
     fi
 }

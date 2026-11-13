@@ -60,6 +60,12 @@ if ! type tac &>/dev/null; then
     }
 fi
 
+clearspace(){
+    emptytrash.sh &&
+    mac_delete_local_snapshots.sh
+}
+alias clsp=clearspace
+
 # used for Shazaming while on headphones - see:
 #
 #   https://github.com/HariSekhon/Knowledge-Base/blob/master/audio.md#shazam-songs-while-using-headphones-on-mac

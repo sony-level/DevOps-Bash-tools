@@ -65,7 +65,7 @@ ipinfo(){
 }
 
 ipify(){
-    curl http://api.ipify.org/
+    curl https://api.ipify.org/
     echo
 }
 
@@ -217,7 +217,7 @@ browser(){
     if [ -n "${BROWSER:-}" ]; then
         "$BROWSER" "$@"
     elif is_mac; then
-        open "${*:-http://google.com}"
+        open "${*:-https://google.com}"
     else
         echo "\$BROWSER environment variable not set and not on Mac OSX, not sure which browser to use, aborting..."
         return 1
@@ -233,32 +233,48 @@ browse(){
 }
 
 downorjustme(){
-    browser "http://www.downforeveryoneorjustme.com/$1"
+    browser "https://www.downforeveryoneorjustme.com/$1"
 }
 
 # directs to the same as downorjustme
 isupme(){
-    browser "http://www.isup.me/$1"
+    browser "https://www.isup.me/$1"
+}
+
+brave(){
+    if [ -x "$bash_tools/internet/brave.sh" ]; then
+        "$bash_tools/internet/brave.sh" "$@"
+    elif is_mac; then
+        # opens in most recent Brave window
+        # could use one of these: --new --args --incognito --new-window
+        open -a 'Brave' "${*:-https://www.google.com}"
+    else
+        checkprog brave || return 1
+        brave "${*:-https://search.brave.com}" &
+    fi
 }
 
 chrome(){
-    if is_mac; then
+    if [ -x "$bash_tools/internet/chrome.sh" ]; then
+        "$bash_tools/internet/chrome.sh" "$@"
+    elif is_mac; then
         # opens in most recent Chrome window
         # could use one of these: --new --args --incognito --new-window
-        open -a 'Google Chrome' "${*:-http://www.google.com}"
+        open -a 'Google Chrome' "${*:-https://www.google.com}"
     else
         checkprog google-chrome || return 1
-        google-chrome "${*:-http://www.google.com}" &
+        google-chrome "${*:-https://www.google.com}" &
     fi
-
 }
 
 ff(){
-    if is_mac; then
-        open -a 'Firefox' "http://${*:-www.google.com}"
+    if [ -x "$bash_tools/internet/firefox.sh" ]; then
+        "$bash_tools/internet/firefox.sh" "$@"
+    elif is_mac; then
+        open -a 'Firefox' "https://${*:-www.google.com}"
     else
         checkprog firefox || return 1
-        firefox "${*:-http://www.google.com}" &
+        firefox "${*:-https://www.google.com}" &
     fi
 }
 
@@ -267,20 +283,20 @@ gg(){
         browser &
     else
         searchterm="${*// /%20}"
-        browser "http://www.google.com/search?q=$searchterm" &
+        browser "https://www.google.com/search?q=$searchterm" &
     fi
 }
 
 netcraft(){
     checkprog firefox || return 1
-    browser "http://uptime.netcraft.com/up/graph?site=$*" &
+    browser "https://uptime.netcraft.com/up/graph?site=$*" &
 }
 
 wikipedia(){
     checkprog "firefox" || return 1
     local searchterm
     searchterm="${*// /%20}"
-    browser "http://en.wikipedia.org?search=$searchterm&go=Go" &
+    browser "https://en.wikipedia.org?search=$searchterm&go=Go" &
 }
 alias wiki=wikipedia
 
@@ -289,12 +305,12 @@ definition(){
     local searchterm
     searchterm="${*// /%20}"
     # hl=en&q=test&btnI=I%27m+Feeling+Lucky&meta=&aq=f
-    browser "http://www.google.co.uk/search?hl=en&q=definition+$searchterm&btnI=I%27m+Feeling+Lucky" &
+    browser "https://www.google.co.uk/search?hl=en&q=definition+$searchterm&btnI=I%27m+Feeling+Lucky" &
 }
 # alias def=definition
 
 # gh(){
-#     url="http://www.google.com/search?q="
+#     url="https://www.google.com/search?q="
 #     browser "${url}site%3A$*" &
 #     browser "${url}site%3A$* login" &
 #     browser "${url}link%3A$*" &

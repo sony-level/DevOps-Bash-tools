@@ -47,7 +47,7 @@ help_usage "$@"
 no_more_args "$@"
 
 if is_mac; then
-    exec "$srcdir/../applescript/shorten_text_selection.scpt"
+    exec "$srcdir/../applescript/shorten_text_selection.applescript"
 fi
 
 for bin in xdotool xclip; do
@@ -105,11 +105,7 @@ xdotool key ctrl+c
 sleep 0.1
 echo
 
-timestamp "Replacing selected clipboard content - 'and' with '&' and collapse multiple blank lines"
-xclip -o -selection clipboard |
-sed -E 's/\band\b/\&/g' |
-cat -s |
-xclip -selection clipboard
+"$srcdir/shorten_clipboard_text.sh"
 sleep 0.1
 echo
 

@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -29,6 +30,9 @@ If the content is ASCII then prompts to confirm the content before uploading for
 Does not do this for non-ASCII files since we can't print media content to the terminal
 
 Expiry defaults to 24 hours
+
+Prints the returns headers as you need to capture the X-Token header to manage the file later, such as deleting it
+or changing its expiry
 
 Recommended: for text use anonymize.py or anonymize.pl from the adjacent DevOps-Python-tools or DevOps-Perl-tools repos
 
@@ -81,12 +85,12 @@ EOF
 fi
 
 {
-command curl -sSlf "$url" \
+command curl -sSlfi "$url" \
              -F "file=@$file" \
              -F "expires=$expiry" ||
     {
         timestamp "FAILED: repeating without the curl -f switch to get the error from the API:"
-        command curl -sSl "$url" \
+        command curl -sSli "$url" \
                      -F "file=@$file" \
                      -F "expires=$expiry"
         echo

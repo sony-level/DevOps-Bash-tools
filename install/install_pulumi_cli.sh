@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -18,6 +19,6 @@ set -euo pipefail
 #srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # installs to ~/.pulumi/bin/
-curl -fsSL https://get.pulumi.com | sh
+curl -fsSL --proto "=https" https://get.pulumi.com | sh
 echo
 ~/.pulumi/bin/pulumi version

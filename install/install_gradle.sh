@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -41,7 +42,9 @@ if [ -e "$BASE/gradle" ]; then
 else
     mkdir -pv "$BASE"
     cd "$BASE"
-    wget -c -t 10 --retry-connrefused "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
+    curl -sSLfO \
+         --proto "=https" \
+         "https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip"
     unzip "gradle-$GRADLE_VERSION-bin.zip"
     rm -f -- "gradle-$GRADLE_VERSION-bin.zip"
     echo

@@ -23,7 +23,7 @@ srcdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck disable=SC2034,SC2154
 usage_description="
-Dumps the GNU Screen terminal output to stdout
+Dumps the GNU Screen terminal contents to stdout
 
 Retains the temp file if this environment variable is set to any value:
 
@@ -57,11 +57,10 @@ tmpfile="$(mktemp)"
 if [ -z "${SCREEN_TERMINAL_NO_DELETE_TEMPFILE:-}" ]; then
     trap_cmd "rm -f \"$tmpfile\""
 else
-    timestamp "Dumping GNU Screen terminal output to tempfile: $tmpfile"
+    timestamp "Dumping GNU Screen terminal contents to tempfile: $tmpfile"
+    echo >&2
 fi
 
 screen -X hardcopy -h "$tmpfile" "$@"
-
-echo >&2
 
 cat "$tmpfile"

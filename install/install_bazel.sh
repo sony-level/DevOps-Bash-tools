@@ -8,7 +8,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -31,9 +32,12 @@ platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
 
 cd /tmp
 
-curl -fLO "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-$platform-x86_64.sh"
+curl -sSLfO \
+     --proto "=https" \
+     "https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-$platform-x86_64.sh"
 
 chmod +x "bazel-${BAZEL_VERSION}-installer-$platform-x86_64.sh"
-./"bazel-${BAZEL_VERSION}-installer-$platform-x86_64.sh" --user  # --user installs to ~/bin and sets the .bazelrc path to ~/.bazelrc
+# --user installs to ~/bin and sets the .bazelrc path to ~/.bazelrc
+./"bazel-${BAZEL_VERSION}-installer-$platform-x86_64.sh" --user
 
 bazel version

@@ -39,10 +39,12 @@ postman
 powershell
 protonvpn
 raycast
+rectangle
 spotify
 transmission
 tor-browser
 vagrant
 virtualbox
+vlc
 vnc-viewer
 wireshark  # installs GUI, without cask only install CLI utils like tshark

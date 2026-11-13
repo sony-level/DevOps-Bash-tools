@@ -91,6 +91,8 @@ alias grep='grep --color=auto'
 #alias envg="env | grep -i"
 alias dec="decomment.sh"
 
+alias dfh="df -h ."
+
 alias dns='cat /etc/resolv.conf'
 alias hosts='sudo $EDITOR /etc/hosts'
 alias repos='$EDITOR $bash_tools/setup/repos.txt'
@@ -186,6 +188,7 @@ alias screen='screen -T $TERM'
 alias ht='headtail.py'
 
 alias run='run.sh'
+alias sleepuntil='sleepuntil.sh'
 
 # ============================================================================ #
 #           GitHub / GitLab / BitBucket / Azure DevOps repo checkouts

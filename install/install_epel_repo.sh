@@ -12,7 +12,8 @@
 #
 #  License: see accompanying Hari Sekhon LICENSE file
 #
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback to help steer this or other code I publish
+#  If you're using my code you're welcome to connect with me on LinkedIn
+#  and optionally send me feedback to help steer this or other code I publish
 #
 #  https://www.linkedin.com/in/HariSekhon
 #
@@ -45,7 +46,10 @@ fi
 if ! $sudo yum install -y epel-release; then
     rpm -qi wget || yum install -y wget
     major_release="$(grep -ho '[[:digit:]]' /etc/*release | head -n1)"
-    wget -t 5 --retry-connrefused -O /tmp/epel.rpm "https://dl.fedoraproject.org/pub/epel/epel-release-latest-$major_release.noarch.rpm"
+    curl -sSLf \
+         --proto "=https" \
+         -o /tmp/epel.rpm \
+         "https://dl.fedoraproject.org/pub/epel/epel-release-latest-$major_release.noarch.rpm"
     $sudo rpm -ivh /tmp/epel.rpm
     rm -f -- /tmp/epel.rpm
 fi
